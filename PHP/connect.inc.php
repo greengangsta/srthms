@@ -1,6 +1,6 @@
  <?php
 
-$db=new mysqli('localhost','id5403966_surajtripathi','Suraj#221B','id5403966_surajtripathi_app');
+$db=new mysqli('localhost','root','','app');
 
 
 if($db->connect_errno) {
