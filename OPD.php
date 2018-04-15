@@ -7,7 +7,7 @@ Visit S/N :<input type="text" name="visit" required/><br><br>
 Reg Number :<input type="text" name="reg" required/><br><br>
 Department :<input type="text" name="department" required/><br><br>
 Consulting Doctor Name :<input type="text" name="doctor" required/><br><br>
-Patients Name :<input type="text" name="visit" required/><br><br>
+Patients Name :<input type="text" name="pname" required/><br><br>
 Fathers Name :<input type="text" name="father" required/><br><br>
 Age :<input type="text" name="age" required/>  Sex  :<input type="text" name="sex" required/>  Religion :<input type="text" name="religion" required/><br><br>
 Address :<input type="text" name="address" required/><br><br>
@@ -20,3 +20,36 @@ Pin :<input type="text" name="pin" required/>Phone No :<input type="text" name="
      background-color: LightSteelBlue;
     }
     </style>
+    
+<?php
+   require 'core.php';
+   require 'connect.inc.php';
+   require 'security.php';
+
+   if(isset($_POST['visit'])){
+   $visit=$_POST['visit'];
+   $ref=$_POST['reg'];
+   $department=$_POST['department'];
+   $doctor=$_POST['doctor'];
+   $pname=$_POST['pname'];
+   $father=$_POST['father'];
+   $age=$_POST['age'];
+   $sex=$_POST['sex'];
+   $religion=$_POST['religion'];
+   $address=$_POST['address'];
+   $city=$_POST['city'];
+   $state=$_POST['state'];
+   $pin=$_POST['pin'];
+   $phone=$_POST['phone'];
+
+ $insert=$db->prepare("INSERT INTO opd(visit,reg,department,doctor,pname,father,age,sex,religion,address,city,state,pin,phone) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW())";
+       $insert->bind_param('ssssssssssssss',$visit,$reg,$department,$doctor,$pname,$father,$age,$sex,$religion,$address,$city,$pin,$phone);
+      if($insert->execute()){
+        header('Location: application.php');
+       //die();
+
+       exit();
+      }
+   }
+
+?>
