@@ -22,13 +22,14 @@ Pin :<input type="text" name="pin" required/>Phone No :<input type="text" name="
     </style>
     
 <?php
-   require 'core.php';
-   require 'connect.inc.php';
-   require 'security.php';
-
+   require_once 'core.php';
+   require_once 'connect.inc.php';
+   require_once 'security.php';
+   
+   if(!empty($_POST)){
    if(isset($_POST['visit'])){
    $visit=$_POST['visit'];
-   $ref=$_POST['reg'];
+   $reg=$_POST['reg'];
    $department=$_POST['department'];
    $doctor=$_POST['doctor'];
    $pname=$_POST['pname'];
@@ -42,14 +43,18 @@ Pin :<input type="text" name="pin" required/>Phone No :<input type="text" name="
    $pin=$_POST['pin'];
    $phone=$_POST['phone'];
 
- $insert=$db->prepare("INSERT INTO opd(visit,reg,department,doctor,pname,father,age,sex,religion,address,city,state,pin,phone) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW())";
-       $insert->bind_param('ssssssssssssss',$visit,$reg,$department,$doctor,$pname,$father,$age,$sex,$religion,$address,$city,$pin,$phone);
+ $insert=$db->prepare("INSERT INTO opd(visit,reg,department,doctor,pname,father,age,sex,religion,address,city,state,pin,phone,created) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW())");
+      $insert->bind_param('ssssssssssssss',$visit,$reg,$department,$doctor,$pname,$father,$age,$sex,$religion,$address,$city,$state,$pin,$phone);
       if($insert->execute()){
+        echo 'alright upto here';
         header('Location: application.php');
        //die();
 
        exit();
       }
+   }
+   
+   
    }
 
 ?>
